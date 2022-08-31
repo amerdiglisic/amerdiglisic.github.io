@@ -15,13 +15,15 @@
   </head>
   <script>
     async function getGenetics() {
-       await bapi.getGenetic();
-       console.log(bapi)
+      await bapi.getGenetic();
+      document.getElementById("genetic").innerHTML = JSON.stringify(
+        bapi.genetic
+      );
     }
   </script>
   <body>
-    <div style="margin-top: 100px; margin-bottom: 100px;">
-        <button onclick="getGenetics()">Get genetics</button>
+    <div style="margin-top: 100px; margin-bottom: 100px">
+      <button onclick="getGenetics()">Get genetics</button>
     </div>
     <div id="genetic"></div>
 
