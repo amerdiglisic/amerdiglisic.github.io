@@ -1,1 +1,30 @@
-Hello World
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TailorBland test</title>
+    <script
+      src="https://biocertica-api.s3.af-south-1.amazonaws.com/js/integration-snippet-dev.js"
+      async
+      defer
+    ></script>
+    <meta
+      name="biocertica-signin-workspace-id"
+      content="e3c5a7ff-6795-4e33-8139-fcdf5c5d4072"
+    />
+    <meta name="biocertica-signin-secret" content="ar01yx52P6pn9x" />
+  </head>
+  <script>
+    async function getGenetics() {
+       await bapi.getGenetic();
+       console.log(bapi)
+    }
+  </script>
+  <body>
+    <div style="margin-top: 100px; margin-bottom: 100px;">
+        <button onclick="getGenetics()">Get genetics</button>
+    </div>
+    <div id="genetic"></div>
+
+    <div id="bio-signin-biocertica" />
+  </body>
+</html>
