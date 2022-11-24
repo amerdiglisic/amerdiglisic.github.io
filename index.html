@@ -1,87 +1,111 @@
 <!DOCTYPE html>
 <html>
-    <head>
-<script
+  <head>
+    <script
       src="https://biocertica-api.s3.af-south-1.amazonaws.com/js/integration-snippet-dev.js"
       async
       defer
     ></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
-        <script
-            src="https://code.jquery.com/jquery-3.6.1.js"
-            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-            crossorigin="anonymous"
-        ></script>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
-            integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
-            crossorigin="anonymous"
-        />
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
-            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-            crossorigin="anonymous"
-        ></script>
-        <meta name="biocertica-signin-workspace-id" content="6e2bdb81-580e-456e-8ce4-f2ceca4d3fda" />
-        <style>
-            body {
-                font-family: 'Montserrat', sans-serif;
-            }
-            .btn {
-                padding: 15px 30px 15px 30px;
-                border: 4px solid grey;
-                border-radius: 25px;
-                color: grey;
-            }
-        </style>
-    </head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+      crossorigin="anonymous"
+    ></script>
+    <meta
+      name="biocertica-signin-workspace-id"
+      content="6e2bdb81-580e-456e-8ce4-f2ceca4d3fda"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .btn {
+        padding: 15px 30px 15px 30px;
+        border: 4px solid grey;
+        border-radius: 25px;
+        color: grey;
+      }
+    </style>
+  </head>
 
-    <script>
-        function initClient() {
-            console.log('initClient');
-            bapi.init('7d9eb7ef-bc6c-4e0a-a42f-445a90eead9d', window.location.href.split('?')[0], 'pkce', 'code');
+  <script>
+    function initClient() {
+      console.log("initClient");
+      bapi.init(
+        "7d9eb7ef-bc6c-4e0a-a42f-445a90eead9d",
+        window.location.href.split("?")[0],
+        "pkce",
+        "code"
+      );
+      debugger;
+
+      bapi.getProfile().then((profileData) => {
+        if (bapi && bapi.profile && bapi.profile.genetic) {
+          bapi.getGenetic().then((profileData) => {
             debugger;
-            bapi.getGenetic().then((profileData) => {
-                debugger;
-                if (bapi && bapi.profile.genetic) {
-                    document.getElementById('data-show').innerText = JSON.stringify(bapi.profile.genetic);
-                } else {
-                     document.getElementById('data-show').innerText = "error" + JSON.stringify(bapi);
-                }
-            });
+            if (bapi && bapi.profile.genetic) {
+              document.getElementById("data-show").innerText = JSON.stringify(
+                bapi.profile.genetic
+              );
+            } else {
+              document.getElementById("data-show").innerText =
+                "error" + JSON.stringify(bapi);
+            }
+          });
+        } else {
+          //window.location = 'BioCerticaRequirements';
         }
-        
-   setTimeout(() => {
+      });
+    }
+
+    setTimeout(() => {
       initClient();
     }, 2000);
-    </script>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align: center">
-                    <h1 style="font-size: 50px">
-                        <strong> Your unique supplement. </strong>
-                    </h1>
-                    <p style="font-size: 40px"><strong>Based on your DNA</strong></p>
-                    <p><br /><br /></p>
-                    <p>Share your BioCertica DNA results to access your TAILORBLEND supplement.</p>
+  </script>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6" style="text-align: center">
+          <h1 style="font-size: 50px">
+            <strong> Your unique supplement. </strong>
+          </h1>
+          <p style="font-size: 40px"><strong>Based on your DNA</strong></p>
+          <p><br /><br /></p>
+          <p>
+            Share your BioCertica DNA results to access your TAILORBLEND
+            supplement.
+          </p>
 
-                    <div id="data-show"></div>
+          <div id="data-show"></div>
 
-                    <div id="bio-signin-biocertica"></div>
-                    <p><br /></p>
-                    <a href="" class="btn"> I DON'T HAVE A BIOCERTICA ACCOUNT </a>
-                    @*
-                    <p><br /></p>
-                    <p>
-                        We'll formulate your personalised<br />nutritional supplement based on<br />your BioCertica
-                        data.
-                    </p>
-                    *@
-                    <p><br /><br /></p>
-                </div>
-            </div>
+          <div id="bio-signin-biocertica"></div>
+          <p><br /></p>
+          <a href="" class="btn"> I DON'T HAVE A BIOCERTICA ACCOUNT </a>
+          @*
+          <p><br /></p>
+          <p>
+            We'll formulate your personalised<br />nutritional supplement based
+            on<br />your BioCertica data.
+          </p>
+          *@
+          <p><br /><br /></p>
         </div>
-    </body>
+      </div>
+    </div>
+  </body>
 </html>
