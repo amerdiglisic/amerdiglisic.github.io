@@ -42,20 +42,12 @@
             console.log('initClient');
             bapi.init('7d9eb7ef-bc6c-4e0a-a42f-445a90eead9d', window.location.href.split('?')[0], 'pkce', 'code');
             debugger;
-            bapi.getProfile().then((profileData) => {
+            bapi.getGenetic().then((profileData) => {
                 debugger;
-                if (bapi && bapi.profile && bapi.profile.genetic) {
-                    bapi.getGenetic().then((geneticData) => {
-                        document.getElementById('data-show').innerText = JSON.stringify(geneticData);
-                        var formData = {
-                            Genetic: bapi.genetic,
-                            Profile: bapi.profile,
-                            Ancestry: bapi.ancestry,
-                            Nutrition: bapi.nutrition,
-                        };
-                    });
+                if (bapi && bapi.profile.genetic) {
+                    document.getElementById('data-show').innerText = JSON.stringify(bapi.profile.genetic);
                 } else {
-                    //window.location = 'BioCerticaRequirements';
+                     document.getElementById('data-show').innerText = "error" + JSON.stringify(bapi);
                 }
             });
         }
