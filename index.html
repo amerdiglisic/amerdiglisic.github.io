@@ -52,16 +52,12 @@
         "pkce",
         "code"
       );
-      debugger;
 
       bapi.getProfile().then((profileData) => {
         if (bapi && bapi.profile && bapi.profile.genetic) {
           bapi.getGenetic().then((profileData) => {
-            debugger;
             if (bapi && bapi.profile.genetic) {
-              document.getElementById("data-show").innerText = JSON.stringify(
-                bapi.profile.genetic
-              );
+              document.getElementById("data-show").innerText = JSON.stringify(profileData);
             } else {
               document.getElementById("data-show").innerText =
                 "error" + JSON.stringify(bapi);
