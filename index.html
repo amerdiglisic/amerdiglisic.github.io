@@ -54,7 +54,7 @@
                     We'll formulate your personalised<br />nutritional supplement based on<br />your BioCertica data.
                 </p>*@
                 <p><br /><br /></p>
-                <div class="row">
+                <div class="row" id="results">
                    
                 </div>
             </div>
@@ -75,24 +75,16 @@
         );
 
         setTimeout(() => {
-            bapi.getProfile().then((profileData) => {
-                debugger
-
+            bapi.getProfile().then(() => {
                 if ((bapi) && (bapi.profile) && (bapi.profile.genetic)) {
-
-                    bapi.getGenetic().then((geneticData) => {
-
-                        debugger
+                    bapi.getGenetic().then(() => {
                         var formData = {
-                       
                             Genetic: bapi.genetic,
                             Profile: bapi.profile,
                             Ancestry: bapi.ancestry,
                             Nutrition: bapi.nutrition
                         };
-
-
-                        
+                        document.getElementById("results").innerText=JSON.stringify(formData);
                     });
                 }
                 else {
