@@ -72,8 +72,9 @@
                 window.location.href.split("?")[0],
                 "pkce",
                 "code"
-        ).then(() => {
-            bapi.getProfile().then(() => {
+        );
+        
+          bapi.getProfile().then(() => {
                 if ((bapi) && (bapi.profile) && (bapi.profile.genetic)) {
                     bapi.getGenetic().then(() => {
                         var formData = {
@@ -88,26 +89,7 @@
                 else {
                      //window.location = 'BioCerticaRequirements';
                 }
-
             });
-        });
-            // bapi.getProfile().then(() => {
-            //     if ((bapi) && (bapi.profile) && (bapi.profile.genetic)) {
-            //         bapi.getGenetic().then(() => {
-            //             var formData = {
-            //                 Genetic: bapi.genetic,
-            //                 Profile: bapi.profile,
-            //                 Ancestry: bapi.ancestry,
-            //                 Nutrition: bapi.nutrition
-            //             };
-            //             document.getElementById("results").innerText=JSON.stringify(formData);
-            //         });
-            //     }
-            //     else {
-            //          //window.location = 'BioCerticaRequirements';
-            //     }
-
-            // });
     };
 
     
