@@ -72,7 +72,7 @@
                 window.location.href.split("?")[0],
                 "pkce",
                 "code"
-        );
+        ).then(() => {
             bapi.getProfile().then(() => {
                 if ((bapi) && (bapi.profile) && (bapi.profile.genetic)) {
                     bapi.getGenetic().then(() => {
@@ -90,6 +90,7 @@
                 }
 
             });
+        });
     };
 
     
