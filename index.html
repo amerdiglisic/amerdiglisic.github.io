@@ -73,8 +73,6 @@
                 "pkce",
                 "code"
         );
-
-        setTimeout(() => {
             bapi.getProfile().then(() => {
                 if ((bapi) && (bapi.profile) && (bapi.profile.genetic)) {
                     bapi.getGenetic().then(() => {
@@ -92,8 +90,6 @@
                 }
 
             });
-
-        }, 3000);
     };
 
     
