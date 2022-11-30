@@ -74,23 +74,71 @@
                 "code"
         );
         
-          bapi.getProfile().then(() => {
-                if ((bapi) && (bapi.profile) && (bapi.profile.genetic)) {
-                    bapi.getGenetic().then(() => {
+          bapi.getProfile().then((profileData) => {
+
+            if ((bapi) && (bapi.profile)) {
+
+                if ((bapi.profile.results_processed)) {
+
+
+
+                    bapi.getGenetic().then((geneticData) => {
+
+                        $('body').loading({
+                            stoppable: false,
+                            message: "We're creating an account for you, collecting your bio-data and formulating your unique blend.This may take a minute or two",
+                            theme: 'dark'
+                        });
+
                         var formData = {
+                            Key: '65D8B96E-BB8D-4ABE-9F44-BBDA84EC15D8',
                             Genetic: bapi.genetic,
                             Profile: bapi.profile,
                             Ancestry: bapi.ancestry,
                             Nutrition: bapi.nutrition
                         };
-                        document.getElementById("results").innerText=JSON.stringify(formData);
+                        debugger;
+                        $.ajax({
+                            method: 'POST',
+                            url: 'https://api.tailorblend.ootbi.co.za' + '/api/v1/blend/createblend',
+                            data: JSON.stringify(formData),
+                            contentType: 'application/json'
+                        }).done(function (blendData) {
+                            console.log(blendData);
+
+                            if (blendData == 0) {
+                                window.location = 'BioCerticaRequirements?QuestionnaireInstanceId=' + blendData;
+                            }
+                            else {
+                                window.location = 'BioCerticaAuth?QuestionnaireInstanceId=' + blendData;
+                            }
+                        });
                     });
+
+
                 }
                 else {
-                     //window.location = 'BioCerticaRequirements';
+
+                    console.log('redirect to BioCerticaRequirements');
                 }
-            });
-    };
+
+
+            }
+            
+
+
+            //if ((bapi) && (bapi.profile) && (bapi.profile.results_processed)) {
+
+
+            //}
+            //else {
+            //    //window.location = 'BioCerticaRequirements';
+
+        
+            //}
+
+        });
+
 
     
 
